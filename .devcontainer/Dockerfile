@@ -1,0 +1,1 @@
+from t4pcommunity/node-devcontainer:latest

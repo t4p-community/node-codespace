@@ -1,0 +1,32 @@
+{
+    "name": "Node Development Workspace",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot",
+          "GitHub.copilot-chat",
+          "dbaeumer.vscode-eslint",
+          "rvest.vs-code-prettier-eslint"
+        ],
+        "settings": {
+          "extensions.ignoreRecommendations": false,
+          "editor.formatOnSave": true,
+          "editor.minimap.enabled": false,
+          "editor.tabSize": 2,
+          "editor.insertSpaces": true,
+          "editor.detectIndentation": false,
+          "explorer.compactFolders": false,
+          "terminal.integrated.tabs.enabled": false,
+          "files.autoSave": "afterDelay",
+          "workbench.startupEditor": "none",
+          "window.zoomLevel": 1,
+          "[markdown]": {
+            "editor.wordWrap": "on",
+            "editor.indentSize": 2,
+            "editor.rulers": []
+          }
+        }
+      }
+    },  
+    "dockerFile": "Dockerfile"
+  }
