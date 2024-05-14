@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 
 
-export function CarForm() {
+export function CarForm({ onSubmitCar }) {
 
 
   const [ carform, setCarForm ] = useState({ make: '', model: '', year: '', color: '' , price: ''});
@@ -18,6 +18,14 @@ export function CarForm() {
     });
 
   }, [carform]);
+
+  const submitCar = useCallback(() => {  
+
+    // ...carform copies properties from one object to another
+    onSubmitCar({ ...carform });
+    setCarForm({ make: '', model: '', year: '', color: '' , price: '' });
+
+}, [carform, onSubmitCar]);
 
   console.log(carform);
 
@@ -43,7 +51,7 @@ export function CarForm() {
         Price:
         <input type="text" name="price" value={carform.price} onChange={change} />
       </label>
-      <button>Add Car</button>
+      <button onClick={submitCar}>Add Car</button>
     </form>
   );
 }

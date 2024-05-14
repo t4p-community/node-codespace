@@ -21,7 +21,7 @@ export function ColorForm({ onSubmitColor }) {
 
   const submitColor = useCallback(() => {  
 
-      // ...colorform copies properties from opne object to another
+      // ...colorform copies properties from one object to another
       onSubmitColor({ ...colorform });
       setColorForm({ name: '', hexcode: ''});
 
@@ -40,6 +40,7 @@ export function ColorForm({ onSubmitColor }) {
         <input type="text" name="hexcode" value={colorform.hexcode} onChange={change} />
       </label>
       <button type="button" onClick={submitColor}>Add Color</button>
+      <button type="button">Remove Color</button>
     </form>
   );
 }

@@ -2,8 +2,9 @@ import { ToolHeader } from './ToolHeader.jsx';
 import { CarTable } from './CarTable.jsx';
 import { CarForm } from './CarForm.jsx';
 
+import { useState, useCallback } from 'react';
 
-export function CarTool(props) {
+export function CarTool({ cars: initialCars }) {
 
 
   // const carObjects = [
@@ -12,11 +13,28 @@ export function CarTool(props) {
 
   // ];
 
+  const [ cars, setCars ] = useState(initialCars);
+
+  // new COlors is the colorform object passed into the addColor function
+  const addCar = useCallback(newCar => {
+
+    // SetColors will update the colors array and re-render
+    setCars([ // the [ create a new array object]
+      ...cars, // copy elements from the original array to the new array
+      {  // { will cretae a new object}
+        ...newCar, // copy properties from the colorform to the new object
+        // get the max id in the colors array and increment by 1
+        id: Math.max(...cars.map(c => c.id), 0) + 1,
+      },
+    ]);
+
+  })
+
   return (
     <>
       <ToolHeader headerText="Car Tool" />
-      <CarTable cars={props.cars} />
-      <CarForm />
+      <CarTable cars={cars} />
+      <CarForm onSubmitCar={addCar} />
       </>
 
   );
