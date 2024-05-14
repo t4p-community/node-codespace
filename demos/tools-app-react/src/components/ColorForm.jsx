@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 
 
-export function ColorForm() {
+export function ColorForm({ onSubmitColor }) {
 
 
   const [ colorform, setColorForm ] = useState({ name: '', hexcode: '' });
@@ -19,6 +19,14 @@ export function ColorForm() {
 
   }, [colorform]);
 
+  const submitColor = useCallback(() => {  
+
+      // ...colorform copies properties from opne object to another
+      onSubmitColor({ ...colorform });
+      setColorForm({ name: '', hexcode: ''});
+
+  }, [colorform, onSubmitColor]);
+
   console.log(colorform);
 
   return (
@@ -31,7 +39,7 @@ export function ColorForm() {
         Hexcode:
         <input type="text" name="hexcode" value={colorform.hexcode} onChange={change} />
       </label>
-      <button>Add Color</button>
+      <button type="button" onClick={submitColor}>Add Color</button>
     </form>
   );
 }
