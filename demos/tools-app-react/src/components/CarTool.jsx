@@ -1,5 +1,7 @@
-import { ToolHeader } from './components/ToolHeader.jsx';
-import { CarTable } from './components/CarTable.jsx';
+import { ToolHeader } from './ToolHeader.jsx';
+import { CarTable } from './CarTable.jsx';
+import { CarForm } from './CarForm.jsx';
+
 
 export function CarTool(props) {
 
@@ -14,6 +16,7 @@ export function CarTool(props) {
     <>
       <ToolHeader headerText="Car Tool" />
       <CarTable cars={props.cars} />
+      <CarForm />
       </>
 
   );

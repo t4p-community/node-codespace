@@ -1,6 +1,8 @@
 
+import { CarViewRow } from './CarViewRow.jsx';
 
-export function CarTable() {
+
+export function CarTable(props) {
 
   return (
     <table>
@@ -15,6 +17,13 @@ export function CarTable() {
           </tr>
         </thead>
         <tbody>
+          {props.cars.map(car => (
+              <CarViewRow key={car.id} car={car} />
+          ))}
+        </tbody>
+        
+
+        {/* <tbody>
         {props.cars.map(object => (
           <tr key={object.id}>
             <td>{object.id}</td>
@@ -25,7 +34,7 @@ export function CarTable() {
             <td>{object.price}</td>
           </tr>
         ))}
-        </tbody>
+        </tbody> */}
       </table>
-  )
+  );
 }

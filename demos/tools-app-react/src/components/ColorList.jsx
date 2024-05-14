@@ -1,5 +1,5 @@
 
-export function ColorList() {
+export function ColorList(props) {
 
   return (
     <>

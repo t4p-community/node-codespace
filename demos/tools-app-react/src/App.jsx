@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { ColorTool } from './components/ColorTool';
-import { CarTool } from './components/CarTool';
+import { ColorTool } from './components/ColorTool.jsx';
+import { CarTool } from './components/CarTool.jsx';
 
 const colorList = [
   { id: 1, name: 'red', hexcode: 'ff0000' },
