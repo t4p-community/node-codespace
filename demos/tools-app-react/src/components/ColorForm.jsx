@@ -40,7 +40,6 @@ export function ColorForm({ onSubmitColor }) {
         <input type="text" name="hexcode" value={colorform.hexcode} onChange={change} />
       </label>
       <button type="button" onClick={submitColor}>Add Color</button>
-      <button type="button">Remove Color</button>
     </form>
   );
 }

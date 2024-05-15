@@ -26,14 +26,18 @@ export function CarTool({ cars: initialCars }) {
         // get the max id in the colors array and increment by 1
         id: Math.max(...cars.map(c => c.id), 0) + 1,
       },
-    ]);
-
+    ], [cars]);
   })
+
+  const deleteCar = useCallback(carId => {  
+    setCars(cars.filter(c => c.id !== carId));
+    }, [cars]);
+    
 
   return (
     <>
       <ToolHeader headerText="Car Tool" />
-      <CarTable cars={cars} />
+      <CarTable cars={cars} onDeleteCar={deleteCar} />
       <CarForm onSubmitCar={addCar} />
       </>
 

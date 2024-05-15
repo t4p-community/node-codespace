@@ -1,6 +1,11 @@
+import { useState, useCallback } from 'react';
 
+export function CarViewRow({ car, onDeleteCar }) {
 
-export function CarViewRow({ car }) {
+  const deleteCar = useCallback(() => {
+    onDeleteCar(car.id);
+  }, [car, onDeleteCar])
+
 
   return(
     <tr>
@@ -10,6 +15,7 @@ export function CarViewRow({ car }) {
         <td>{car.year}</td>
         <td>{car.color}</td>
         <td>{car.price}</td>
+        <td><button type="button" onClick={deleteCar}>Delete</button></td>
       </tr>
   );
 }

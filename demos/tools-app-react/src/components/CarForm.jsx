@@ -6,7 +6,7 @@ import { useState, useCallback } from 'react';
 export function CarForm({ onSubmitCar }) {
 
 
-  const [ carform, setCarForm ] = useState({ make: '', model: '', year: '', color: '' , price: ''});
+  const [ carform, setCarForm ] = useState({ make: '', model: '', year: 2020, color: '' , price: 0});
 
   
   const change = useCallback(e => {  
@@ -14,7 +14,7 @@ export function CarForm({ onSubmitCar }) {
     // ...colorform = copies properties from one object to another
     setCarForm({
       ...carform,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.type === 'number' ? e.target.valueAsNumber : e.target.value
     });
 
   }, [carform]);
@@ -23,9 +23,10 @@ export function CarForm({ onSubmitCar }) {
 
     // ...carform copies properties from one object to another
     onSubmitCar({ ...carform });
-    setCarForm({ make: '', model: '', year: '', color: '' , price: '' });
+    setCarForm({ make: '', model: '', year: 2020, color: '' , price: 0 });
 
 }, [carform, onSubmitCar]);
+
 
   console.log(carform);
 

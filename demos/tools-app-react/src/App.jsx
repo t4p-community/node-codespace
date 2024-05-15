@@ -21,8 +21,8 @@ const cars = [
   },
   {
     id: 2,
-    make: 'Ford',
-    model: 'Fusion Hybrid',
+    make: 'BMW',
+    model: 'X',
     year: 2023,
     color: 'blue',
     price: 50000.00

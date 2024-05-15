@@ -1,8 +1,14 @@
 
 import { CarViewRow } from './CarViewRow.jsx';
+import { useState, useCallback } from 'react';
 
 
-export function CarTable(props) {
+export function CarTable({ cars, onDeleteCar}) {
+
+  const deleteCar = useCallback((carId) => {
+    onDeleteCar(carId);
+  }, [onDeleteCar]);
+ 
 
   return (
     <table>
@@ -14,11 +20,13 @@ export function CarTable(props) {
             <th>Year</th>
             <th>Color</th>
             <th>Price</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {props.cars.map(car => (
-              <CarViewRow key={car.id} car={car} />
+          {cars.map(car => (
+              <CarViewRow key={car.id} car={car} 
+              onDeleteCar={deleteCar} />
           ))}
         </tbody>
         
