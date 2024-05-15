@@ -1,6 +1,6 @@
+import { BaseHttpData } from "./baseHttpData";
 
-
-class CarsHttpData extends BaseHttpData {
+export class CarsHttpData extends BaseHttpData {
 
   constructor(baseUrl) {
     super(baseUrl, "cars");

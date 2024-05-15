@@ -2,9 +2,14 @@
 import { ToolHeader } from './ToolHeader.jsx';
 import { ColorList } from './ColorList.jsx'
 import { ColorForm } from './ColorForm.jsx';
-import { useState, useCallback } from 'react';
+import { ColorsHttpData } from '../services/colorsHttpData';
 
-export function ColorTool( { colors: initialColors }) {
+import { useState, useCallback, useEffect } from 'react';
+
+const colorsData = new ColorsHttpData("/api");
+
+export function ColorTool() {
+
 
   // props and anything accessed through props is immutable
 
@@ -16,22 +21,40 @@ export function ColorTool( { colors: initialColors }) {
   // // this code will get you fired, sued, and your career destroyed
   // props.colors.push({id: 4, name: "yellow", hexcode: "00ffff "});
   
-  const [ colors, setColors ] = useState(initialColors);
+  const [ colors, setColors ] = useState([]);
+
+  const refreshColors = useCallback(async () => {
+
+    setColors(await colorsData.all());
+  }, []);
 
   // new COlors is the colorform object passed into the addColor function
-  const addColor = useCallback(newColor => {
+  const addColor = useCallback(async newColor => {
 
-    // SetColors will update the colors array and re-render
-    setColors([ // the [ create a new array object]
-      ...colors, // copy elements from the original array to the new array
-      {  // { will cretae a new object}
-        ...newColor, // copy properties from the colorform to the new object
-        // get the max id in the colors array and increment by 1
-        id: Math.max(...colors.map(c => c.id), 0) + 1,
-      },
-    ]);
+    await colorsData.append(newColor);
+    await refreshColors();
 
-  })
+  }, [refreshColors]);
+
+  //   // SetColors will update the colors array and re-render
+  //   setColors([ // the [ create a new array object]
+  //     ...colors, // copy elements from the original array to the new array
+  //     {  // { will cretae a new object}
+  //       ...newColor, // copy properties from the colorform to the new object
+  //       // get the max id in the colors array and increment by 1
+  //       id: Math.max(...colors.map(c => c.id), 0) + 1,
+  //     },
+  //   ]);
+  // }, [colors]);
+
+  // this will run one-time after the initial render
+  // to initially load the colors
+    useEffect(() => {
+
+      refreshColors();
+
+    }, [refreshColors]);
+
 
   return (
     <>

@@ -1,10 +1,14 @@
 import { ToolHeader } from './ToolHeader.jsx';
 import { CarTable } from './CarTable.jsx';
 import { CarForm } from './CarForm.jsx';
+import { CarsHttpData } from '../services/carsHttpData';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
-export function CarTool({ cars: initialCars }) {
+const carsData = new CarsHttpData("/api");
+
+
+export function CarTool() {
 
 
   // const carObjects = [
@@ -13,26 +17,43 @@ export function CarTool({ cars: initialCars }) {
 
   // ];
 
-  const [ cars, setCars ] = useState(initialCars);
+  const [ cars, setCars ] = useState([]);
 
-  // new COlors is the colorform object passed into the addColor function
-  const addCar = useCallback(newCar => {
+  const refreshCars = useCallback(async () => {
+    setCars(await carsData.all());
+  }, []);
 
-    // SetColors will update the colors array and re-render
-    setCars([ // the [ create a new array object]
-      ...cars, // copy elements from the original array to the new array
-      {  // { will cretae a new object}
-        ...newCar, // copy properties from the colorform to the new object
-        // get the max id in the colors array and increment by 1
-        id: Math.max(...cars.map(c => c.id), 0) + 1,
-      },
-    ], [cars]);
-  })
+  const addCar = useCallback(async newCar => {
+    await carsData.append(newCar);
+    await refreshCars();
+  }, [refreshCars]);
 
-  const deleteCar = useCallback(carId => {  
-    setCars(cars.filter(c => c.id !== carId));
-    }, [cars]);
-    
+  // // new COlors is the colorform object passed into the addColor function
+  // const addCar = useCallback(newCar => {
+
+  //   // SetColors will update the colors array and re-render
+  //   setCars([ // the [ create a new array object]
+  //     ...cars, // copy elements from the original array to the new array
+  //     {  // { will cretae a new object}
+  //       ...newCar, // copy properties from the colorform to the new object
+  //       // get the max id in the colors array and increment by 1
+  //       id: Math.max(...cars.map(c => c.id), 0) + 1,
+  //     },
+  //   ], [cars]);
+  // })
+
+  // const deleteCar = useCallback(carId => {  
+  //   setCars(cars.filter(c => c.id !== carId));
+  //   }, [cars]);
+  
+  const deleteCar = useCallback(async carId => {
+    await carsData.remove(carId);
+    await refreshCars();
+  }, [refreshCars]);
+
+  useEffect(() => {
+    refreshCars();
+  }, [refreshCars]);
 
   return (
     <>

@@ -1,5 +1,6 @@
+import { BaseHttpData } from "./baseHttpData";
 
-class ColorsHttpData extends BaseHttpData {
+export class ColorsHttpData extends BaseHttpData {
 
   constructor(baseUrl) {
     super(baseUrl, "colors");
